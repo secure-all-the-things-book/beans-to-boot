@@ -1,18 +1,17 @@
-package com.example.beans_to_boot.tx2;
+package com.example.beans_to_boot.cglibproxy;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.util.Collection;
 
-class DefaultDogRepository implements DogRepository {
+class DogRepository {
 
 	private final JdbcClient db;
 
-	DefaultDogRepository(JdbcClient db) {
+	DogRepository(JdbcClient db) {
 		this.db = db;
 	}
 
-	@Override
 	public Collection<Dog> findAll() {
 		return db.sql("select * from dog")
 			.query((rs, i) -> new Dog(rs.getInt("id"), rs.getString("name"), rs.getString("description")))

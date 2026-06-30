@@ -1,4 +1,4 @@
-package com.example.beans_to_boot.tx2;
+package com.example.beans_to_boot.cglibproxy;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -10,10 +10,10 @@ public class Main {
 	public static void main(String[] args) {
 		var db = new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
 		var jdbc = JdbcClient.create(db);
-		var dogRepository = new DefaultDogRepository(jdbc);
+		var dogRepository = new DogRepository(jdbc);
 		var dbPlatformTransactionManager = new DataSourceTransactionManager(db);
 		var transactionTemplate = new TransactionTemplate(dbPlatformTransactionManager);
-		var transactionalDogRepository = new TransactionalDogRepository(transactionTemplate, dogRepository);
+		var transactionalDogRepository = (DogRepository) Transactions.createProxy(transactionTemplate, dogRepository);
 		test(transactionalDogRepository);
 	}
 

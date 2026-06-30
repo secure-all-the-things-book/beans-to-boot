@@ -6,17 +6,18 @@ import java.util.Collection;
 
 class TransactionalDogRepository implements DogRepository {
 
-    private final DogRepository target;
-    private final TransactionTemplate txm;
+	private final DogRepository target;
 
-    TransactionalDogRepository(TransactionTemplate txm,
-                               DogRepository target) {
-        this.target = target;
-        this.txm = txm;
-    }
+	private final TransactionTemplate txm;
 
-    @Override
-    public Collection<Dog> findAll() {
-        return this.txm.execute(_ -> target.findAll());
-    }
+	TransactionalDogRepository(TransactionTemplate txm, DogRepository target) {
+		this.target = target;
+		this.txm = txm;
+	}
+
+	@Override
+	public Collection<Dog> findAll() {
+		return this.txm.execute(_ -> target.findAll());
+	}
+
 }

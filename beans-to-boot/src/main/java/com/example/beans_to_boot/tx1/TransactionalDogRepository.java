@@ -6,29 +6,30 @@ import java.util.Collection;
 
 class TransactionalDogRepository implements DogRepository {
 
-    private final DogRepository target;
-    private final PlatformTransactionManager txm;
+	private final DogRepository target;
 
-    TransactionalDogRepository(PlatformTransactionManager txm,
-                               DogRepository target) {
-        this.target = target;
-        this.txm = txm;
-    }
+	private final PlatformTransactionManager txm;
 
-    @Override
-    public Collection<Dog> findAll() {
-        IO.println("starting transaction");
-        var status = this.txm.getTransaction(null);
-        try {
-            var results = this.target.findAll();
-            this.txm.commit(status);
-            IO.println("committing transaction");
-            return results;
-        } //
-        catch (Throwable throwable) {
-            IO.println("rolling transaction back");
-            this.txm.rollback(status);
-            throw new RuntimeException(throwable);
-        }
-    }
+	TransactionalDogRepository(PlatformTransactionManager txm, DogRepository target) {
+		this.target = target;
+		this.txm = txm;
+	}
+
+	@Override
+	public Collection<Dog> findAll() {
+		IO.println("starting transaction");
+		var status = this.txm.getTransaction(null);
+		try {
+			var results = this.target.findAll();
+			this.txm.commit(status);
+			IO.println("committing transaction");
+			return results;
+		} //
+		catch (Throwable throwable) {
+			IO.println("rolling transaction back");
+			this.txm.rollback(status);
+			throw new RuntimeException(throwable);
+		}
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.example.beans_to_boot.tx2;
+package com.example.beans_to_boot.jdkproxy;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 

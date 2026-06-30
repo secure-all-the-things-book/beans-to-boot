@@ -1,4 +1,4 @@
-package com.example.beans_to_boot.tx2;
+package com.example.beans_to_boot.jdkproxy;
 
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -13,7 +13,7 @@ public class Main {
 		var dogRepository = new DefaultDogRepository(jdbc);
 		var dbPlatformTransactionManager = new DataSourceTransactionManager(db);
 		var transactionTemplate = new TransactionTemplate(dbPlatformTransactionManager);
-		var transactionalDogRepository = new TransactionalDogRepository(transactionTemplate, dogRepository);
+		var transactionalDogRepository = (DogRepository) Transactions.createProxy(transactionTemplate, dogRepository);
 		test(transactionalDogRepository);
 	}
 
