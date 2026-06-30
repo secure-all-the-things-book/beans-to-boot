@@ -1,5 +1,6 @@
-package com.example.beans_to_boot.lifecycle;
+package com.example.beans_to_boot.pp;
 
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.simple.JdbcClient;
@@ -12,6 +13,11 @@ import javax.sql.DataSource;
 
 @Configuration
 class DogConfiguration {
+
+    @Bean
+    static TxBeanFactoryPostProcessor txBeanFactoryPostProcessor(BeanFactory beanFactory) {
+        return new TxBeanFactoryPostProcessor(beanFactory);
+    }
 
     @Bean
     Listener listener() {
@@ -35,9 +41,7 @@ class DogConfiguration {
 
     @Bean
     DogRepository dogRepository(TransactionTemplate tt, JdbcClient jdbcClient) {
-        var target = new DogRepository(jdbcClient);
-        return (DogRepository) Transactions.createProxy(
-                tt, target);
+        return new DogRepository(jdbcClient);
     }
 
     @Bean
