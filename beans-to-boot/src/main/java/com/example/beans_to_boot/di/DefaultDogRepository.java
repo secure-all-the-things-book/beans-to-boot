@@ -1,6 +1,4 @@
-package com.example.beans_to_boot.raw;
-
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+package com.example.beans_to_boot.di;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -10,8 +8,8 @@ class DefaultDogRepository implements DogRepository {
 
 	private final DataSource db;
 
-	DefaultDogRepository() {
-		this.db = new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
+	DefaultDogRepository(DataSource db) {
+		this.db = db;
 	}
 
 	@Override
