@@ -13,35 +13,35 @@ import javax.sql.DataSource;
 @Configuration
 class DogConfiguration {
 
-    @Bean
-    Listener listener() {
-        return new Listener();
-    }
+	@Bean
+	Listener listener() {
+		return new Listener();
+	}
 
-    @Bean
-    TransactionTemplate transactionTemplate(PlatformTransactionManager platformTransactionManager) {
-        return new TransactionTemplate(platformTransactionManager);
-    }
+	@Bean
+	TransactionTemplate transactionTemplate(PlatformTransactionManager platformTransactionManager) {
+		return new TransactionTemplate(platformTransactionManager);
+	}
 
-    @Bean
-    DriverManagerDataSource driverManagerDataSource() {
-        return new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
-    }
+	@Bean
+	DriverManagerDataSource driverManagerDataSource() {
+		return new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
+	}
 
-    @Bean
-    JdbcClient jdbcClient(DataSource dataSource) {
-        return JdbcClient.create(dataSource);
-    }
+	@Bean
+	JdbcClient jdbcClient(DataSource dataSource) {
+		return JdbcClient.create(dataSource);
+	}
 
-    @Bean
-    DogRepository dogRepository(TransactionTemplate tt, JdbcClient jdbcClient) {
-        var target = new DogRepository(jdbcClient);
-        return (DogRepository) Transactions.createProxy(
-                tt, target);
-    }
+	@Bean
+	DogRepository dogRepository(TransactionTemplate tt, JdbcClient jdbcClient) {
+		var target = new DogRepository(jdbcClient);
+		return (DogRepository) Transactions.createProxy(tt, target);
+	}
 
-    @Bean
-    DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+	@Bean
+	DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
+	}
+
 }

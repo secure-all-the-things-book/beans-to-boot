@@ -8,17 +8,17 @@ import org.springframework.context.event.EventListener;
 
 class Listener implements ApplicationListener<ApplicationEvent> {
 
-    @Override
-    public void onApplicationEvent(ApplicationEvent event) {
-        IO.println("got [" + event.getClass().getName() + "]");
-        if (event instanceof ContextRefreshedEvent contextRefreshedEvent) {
-            IO.println("got contextRefreshedEvent [" + contextRefreshedEvent + "]");
-        }
-    }
+	@Override
+	public void onApplicationEvent(ApplicationEvent event) {
+		IO.println("got [" + event.getClass().getName() + "]");
+		if (event instanceof ContextRefreshedEvent contextRefreshedEvent) {
+			IO.println("got contextRefreshedEvent [" + contextRefreshedEvent + "]");
+		}
+	}
 
-    @EventListener
-    void onClose(ContextClosedEvent contextClosedEvent) {
-        IO.println("context closed event [" + contextClosedEvent
-                .getTimestamp() + "]");
-    }
+	@EventListener
+	void onClose(ContextClosedEvent contextClosedEvent) {
+		IO.println("context closed event [" + contextClosedEvent.getTimestamp() + "]");
+	}
+
 }

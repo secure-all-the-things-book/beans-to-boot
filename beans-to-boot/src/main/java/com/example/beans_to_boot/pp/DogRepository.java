@@ -6,28 +6,28 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.util.Collection;
 
-class DogRepository
-        implements Tx, InitializingBean, DisposableBean {
+class DogRepository implements Tx, InitializingBean, DisposableBean {
 
-    private final JdbcClient db;
+	private final JdbcClient db;
 
-    DogRepository(JdbcClient db) {
-        this.db = db;
-    }
+	DogRepository(JdbcClient db) {
+		this.db = db;
+	}
 
-    public Collection<Dog> findAll() {
-        return db.sql("select * from dog")
-                .query((rs, i) -> new Dog(rs.getInt("id"), rs.getString("name"), rs.getString("description")))
-                .list();
-    }
+	public Collection<Dog> findAll() {
+		return db.sql("select * from dog")
+			.query((rs, i) -> new Dog(rs.getInt("id"), rs.getString("name"), rs.getString("description")))
+			.list();
+	}
 
-    @Override
-    public void destroy() throws Exception {
-        IO.println("destroy");
-    }
+	@Override
+	public void destroy() throws Exception {
+		IO.println("destroy");
+	}
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        IO.println("afterPropertiesSet");
-    }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		IO.println("afterPropertiesSet");
+	}
+
 }

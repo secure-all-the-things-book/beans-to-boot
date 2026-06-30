@@ -1,25 +1,21 @@
-package com.example.beans_to_boot.pp;
+package com.example.beans_to_boot.componentscan;
 
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 
 @Configuration
-@Import(BppConfiguration.class)
+@ComponentScan
+@EnableTransactionManagement
 class DogConfiguration {
-
-    @Bean
-    static TxBeanPostProcessor txBeanFactoryPostProcessor(BeanFactory beanFactory) {
-        return new TxBeanPostProcessor(beanFactory);
-    }
 
     @Bean
     Listener listener() {
@@ -39,11 +35,6 @@ class DogConfiguration {
     @Bean
     JdbcClient jdbcClient(DataSource dataSource) {
         return JdbcClient.create(dataSource);
-    }
-
-    @Bean
-    DogRepository dogRepository(JdbcClient jdbcClient) {
-        return new DogRepository(jdbcClient);
     }
 
     @Bean

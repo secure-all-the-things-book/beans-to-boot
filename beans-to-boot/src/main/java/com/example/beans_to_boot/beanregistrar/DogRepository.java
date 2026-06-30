@@ -1,11 +1,14 @@
-package com.example.beans_to_boot.lifecycle;
+package com.example.beans_to_boot.beanregistrar;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-
+@Repository
+@Transactional
 class DogRepository implements InitializingBean, DisposableBean {
 
 	private final JdbcClient db;

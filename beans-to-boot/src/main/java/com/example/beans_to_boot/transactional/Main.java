@@ -1,4 +1,4 @@
-package com.example.beans_to_boot.lifecycle;
+package com.example.beans_to_boot.transactional;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
