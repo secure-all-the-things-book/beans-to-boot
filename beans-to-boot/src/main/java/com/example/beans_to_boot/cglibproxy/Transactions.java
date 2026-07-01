@@ -20,7 +20,6 @@ class Transactions {
 	}
 
 	private static Object doInTx(TransactionTemplate tt, Object target, Method method, Object[] args) {
-
 		return tt.execute(_ -> {
 			try {
 				try {

@@ -8,16 +8,25 @@ import java.lang.reflect.Proxy;
 class Transactions {
 
 	static Object createProxy(TransactionTemplate tt, Object target) {
-		return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(),
-				(_, method, args) -> doInTx(tt, target, method, args));
+		var classLoader = target.getClass().getClassLoader();
+		var interfaces = target.getClass().getInterfaces();
+		// <.>
+		return Proxy.newProxyInstance(classLoader, interfaces, (_, method, args) -> doInTx(tt, target, method, args));
 	}
 
-	private static Object doInTx(TransactionTemplate tt, Object target, Method method, Object[] args) {
-
+	// <.>
+	private static Object doInTx(TransactionTemplate tt,
+			// <.>
+			Object target,
+			// <.>
+			Method method,
+			// <.>
+			Object[] args) {
 		return tt.execute(_ -> {
 			try {
 				try {
 					IO.println("before tx");
+					// <.>
 					return method.invoke(target, args);
 				} //
 				finally {

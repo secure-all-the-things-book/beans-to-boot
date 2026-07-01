@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 @Configuration
 class DogConfiguration {
 
+	// <.>
 	@Bean
 	TransactionTemplate transactionTemplate(PlatformTransactionManager platformTransactionManager) {
 		return new TransactionTemplate(platformTransactionManager);
