@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 @Configuration
 class DogConfiguration {
 
+	// <.>
 	@Bean
 	Listener listener() {
 		return new Listener();
