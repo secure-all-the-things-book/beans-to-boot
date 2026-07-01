@@ -5,10 +5,13 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.util.Assert;
+
+import java.net.URI;
+import java.util.Objects;
 
 @Configuration
 @ComponentScan
+// <.>
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @Import(DogBeanRegistrar.class)
@@ -16,15 +19,15 @@ class DogConfiguration {
 
 	@Bean
 	DriverManagerDataSource driverManagerDataSource(Environment environment,
-			@Value("${spring.datasource.url}") String urlValue) {
-		var url = environment.getProperty("spring.datasource.url");
+			// <.>
+			@Value("${spring.datasource.username}") String usernameValue) {
+		IO.println("configuring the DataSource username: [" + usernameValue + "]");
+		// <.>
 		var username = environment.getProperty("spring.datasource.username");
+		// <.>
+		var url = environment.getProperty("spring.datasource.url", URI.class);
 		var pw = environment.getProperty("spring.datasource.password");
-		Assert.notNull(url, "url must be non-null");
-		Assert.notNull(username, "username must be non-null");
-		Assert.notNull(pw, "password must be non-null");
-		Assert.state(url.equals(urlValue), "url must be set and the same");
-		return new DriverManagerDataSource(url, username, pw);
+		return new DriverManagerDataSource(Objects.requireNonNull(url).toASCIIString(), username, pw);
 	}
 
 }
