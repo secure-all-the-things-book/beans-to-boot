@@ -1,3 +1,4 @@
+delete from dog;
 insert into dog (name, description)
 values ('Prancer', 'A cute dog');
 insert into dog (name, description)

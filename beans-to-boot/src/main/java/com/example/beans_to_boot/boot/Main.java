@@ -6,14 +6,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
-@Import(DogBeanRegistrar.class)
+// <.>
 @SpringBootApplication
+// <.>
+@Import(DogBeanRegistrar.class)
 public class Main {
 
 	static void main(String[] args) {
+		// <.>
 		SpringApplication.run(Main.class, args);
 	}
 
+	// <.>
 	@Bean
 	ApplicationRunner testRunner(DogRepository repository) {
 		return _ -> repository.findAll().forEach(IO::println);

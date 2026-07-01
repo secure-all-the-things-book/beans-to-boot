@@ -9,6 +9,7 @@ class DogBeanRegistrar implements BeanRegistrar {
 	@Override
 	public void register(BeanRegistry registry, Environment env) {
 		registry.registerBean(MyBeanFactoryPostProcessor.class);
+		registry.registerBean(Listener.class);
 	}
 
 }
