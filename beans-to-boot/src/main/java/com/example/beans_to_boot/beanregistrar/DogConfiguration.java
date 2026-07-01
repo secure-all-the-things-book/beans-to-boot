@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import(DogBeanRegistrar.class)
 class DogConfiguration {
 
-    @Bean
-    DriverManagerDataSource driverManagerDataSource() {
-        return new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase",
-                "myuser", "secret");
-    }
+	@Bean
+	DriverManagerDataSource driverManagerDataSource() {
+		return new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
+	}
+
 }

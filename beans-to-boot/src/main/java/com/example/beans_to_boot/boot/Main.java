@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 public class Main {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(Main.class, args);
+	}
 
-    @Bean
-    ApplicationRunner testRunner(DogRepository repository) {
-        return _ -> repository.findAll().forEach(IO::println);
-    }
+	@Bean
+	ApplicationRunner testRunner(DogRepository repository) {
+		return _ -> repository.findAll().forEach(IO::println);
+	}
 
 }

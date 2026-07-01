@@ -6,9 +6,9 @@ import org.springframework.core.env.Environment;
 
 class DogBeanRegistrar implements BeanRegistrar {
 
-    @Override
-    public void register(BeanRegistry registry, Environment env) {
-        registry.registerBean(MyBeanFactoryPostProcessor.class);
-    }
+	@Override
+	public void register(BeanRegistry registry, Environment env) {
+		registry.registerBean(MyBeanFactoryPostProcessor.class);
+	}
 
 }

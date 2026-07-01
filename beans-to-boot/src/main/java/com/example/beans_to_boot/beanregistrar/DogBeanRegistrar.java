@@ -12,15 +12,15 @@ import javax.sql.DataSource;
 
 class DogBeanRegistrar implements BeanRegistrar {
 
-    @Override
-    public void register(BeanRegistry registry, Environment env) {
-        registry.registerBean(Listener.class);
-        registry.registerBean(MyBeanFactoryPostProcessor.class);
-        registry.registerBean(TransactionTemplate.class,
-                a -> a.supplier(ctx -> new TransactionTemplate(ctx.bean(DataSourceTransactionManager.class))));
-        registry.registerBean(JdbcClient.class, a -> a
-                .supplier(ctx -> JdbcClient.create(ctx.bean(DataSource.class))));
-        registry.registerBean(DataSourceTransactionManager.class, a -> a
-                .supplier(supplierContext -> new DataSourceTransactionManager(supplierContext.bean(DataSource.class))));
-    }
+	@Override
+	public void register(BeanRegistry registry, Environment env) {
+		registry.registerBean(Listener.class);
+		registry.registerBean(MyBeanFactoryPostProcessor.class);
+		registry.registerBean(TransactionTemplate.class,
+				a -> a.supplier(ctx -> new TransactionTemplate(ctx.bean(DataSourceTransactionManager.class))));
+		registry.registerBean(JdbcClient.class, a -> a.supplier(ctx -> JdbcClient.create(ctx.bean(DataSource.class))));
+		registry.registerBean(DataSourceTransactionManager.class, a -> a
+			.supplier(supplierContext -> new DataSourceTransactionManager(supplierContext.bean(DataSource.class))));
+	}
+
 }
