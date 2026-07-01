@@ -10,6 +10,7 @@ class TxBeanPostProcessor implements BeanPostProcessor {
 
 	private final BeanFactory beanFactory;
 
+	// <.>
 	TxBeanPostProcessor(BeanFactory beanFactory) {
 		this.beanFactory = beanFactory;
 	}
@@ -19,7 +20,7 @@ class TxBeanPostProcessor implements BeanPostProcessor {
 		if (bean instanceof Tx tx) {
 			IO.println("making a transactional proxy for [" + tx.getClass().getName() + "] with bean name [" + beanName
 					+ "]");
-			var transactionTemplate = beanFactory.getBean(TransactionTemplate.class);
+			var transactionTemplate = this.beanFactory.getBean(TransactionTemplate.class);
 			return Transactions.createProxy(transactionTemplate, tx);
 		}
 		return bean;

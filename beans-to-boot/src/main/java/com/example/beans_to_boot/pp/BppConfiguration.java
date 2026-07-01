@@ -1,9 +1,9 @@
 package com.example.beans_to_boot.pp;
 
-import jdk.jfr.Description;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 
 @Configuration
 class BppConfiguration {

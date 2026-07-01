@@ -12,7 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement // <.>
 class DogConfiguration {
 
 	@Bean
