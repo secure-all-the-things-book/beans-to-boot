@@ -4,7 +4,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	static void main(String[] args) throws Exception {
 		var db = new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
 		var dogRepository = new DefaultDogRepository(db);
 		test(dogRepository);

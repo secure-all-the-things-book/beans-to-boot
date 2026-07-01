@@ -9,14 +9,14 @@ import org.springframework.context.annotation.Description;
 class BppConfiguration {
 
 	@Bean
-	@Description("A simple demo that has a description")
-	InitializingBean simpleDemoThatHasADescription() {
-		return () -> IO.println("a demo with a description ");
+	static MyBeanFactoryPostProcessor myBeanFactoryPostProcessor() {
+		return new MyBeanFactoryPostProcessor();
 	}
 
 	@Bean
-	static MyBeanFactoryPostProcessor myBeanFactoryPostProcessor() {
-		return new MyBeanFactoryPostProcessor();
+	@Description("A simple demo that has a description")
+	InitializingBean simpleDemoThatHasADescription() {
+		return () -> IO.println("a demo with a description ");
 	}
 
 }

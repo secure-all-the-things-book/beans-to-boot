@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		// <.>
 		var applicationContext = new AnnotationConfigApplicationContext(DogConfiguration.class);
 		var dogRepository = applicationContext.getBean(DogRepository.class);

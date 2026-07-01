@@ -19,7 +19,7 @@ class DefaultDogRepository implements DogRepository {
 				var ps = connection.prepareStatement("select * from dog") //
 		) {
 			var list = new ArrayList<Dog>();
-			try (var rs = ps.executeQuery();) {
+			try (var rs = ps.executeQuery()) {
 				while (rs.next())
 					list.add(new Dog(rs.getInt("id"), rs.getString("name"), rs.getString("description")));
 			}

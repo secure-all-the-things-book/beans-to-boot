@@ -4,8 +4,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main {
 
-	public static void main(String[] args) {
-		try (var applicationContext = new AnnotationConfigApplicationContext(DogConfiguration.class);) {
+	static void main(String[] args) {
+		try (var applicationContext = new AnnotationConfigApplicationContext(DogConfiguration.class)) {
 			applicationContext.registerShutdownHook();
 			var dogRepository = applicationContext.getBean(DogRepository.class);
 			test(dogRepository);

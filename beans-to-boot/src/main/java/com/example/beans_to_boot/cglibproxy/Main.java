@@ -7,7 +7,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 public class Main {
 
-	public static void main(String[] args) {
+	static void main(String[] args) {
 		var db = new DriverManagerDataSource("jdbc:postgresql://localhost/mydatabase", "myuser", "secret");
 		var jdbc = JdbcClient.create(db);
 		var dogRepository = new DogRepository(jdbc);
