@@ -6,17 +6,23 @@ import java.util.Collection;
 
 class DefaultDogRepository implements DogRepository {
 
-	private final JdbcClient db;
+    private final JdbcClient db;
 
-	DefaultDogRepository(JdbcClient db) {
-		this.db = db;
-	}
+    DefaultDogRepository(JdbcClient db) {
+        this.db = db;
+    }
 
-	@Override
-	public Collection<Dog> findAll() {
-		return db.sql("select * from dog")
-			.query((rs, i) -> new Dog(rs.getInt("id"), rs.getString("name"), rs.getString("description")))
-			.list();
-	}
+    @Override
+    public Collection<Dog> findAll() {
+        return db // <.>
+                .sql("select * from dog")//
+                // <.>
+                .query((rs, _) -> new Dog(//
+                        rs.getInt("id"), //
+                        rs.getString("name"),//
+                        rs.getString("description"))//
+                ) //
+                .list();
+    }
 
 }

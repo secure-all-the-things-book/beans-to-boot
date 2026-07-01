@@ -12,6 +12,7 @@ public class Main {
 		var jdbc = JdbcClient.create(db);
 		var dogRepository = new DefaultDogRepository(jdbc);
 		var dbPlatformTransactionManager = new DataSourceTransactionManager(db);
+		// <.>
 		var transactionTemplate = new TransactionTemplate(dbPlatformTransactionManager);
 		var transactionalDogRepository = new TransactionalDogRepository(transactionTemplate, dogRepository);
 		test(transactionalDogRepository);
