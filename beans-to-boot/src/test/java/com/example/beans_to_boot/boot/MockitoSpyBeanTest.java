@@ -14,17 +14,17 @@ import static org.mockito.Mockito.verify;
 @ContextConfiguration(classes = StoreConfiguration.class)
 class MockitoSpyBeanTest {
 
+	// <.>
 	@MockitoSpyBean
-	private StoreService storeService;
+	StoreService storeService;
 
 	@Test
 	void callsTheRealMethodByDefault() {
-		// the real isOpen() actually executes against the real Clock
+
 		// <.>
 		var open = storeService.isOpen();
 
 		// <.>
-		// ...but it's a spy, so the invocation is still recorded
 		verify(storeService).isOpen();
 		assertThat(open).isIn(true, false);
 	}
@@ -32,7 +32,7 @@ class MockitoSpyBeanTest {
 	@Test
 	void canStubASingleMethodWhenYouWantTo() {
 		// <.>
-		given(storeService.isOpen()).willReturn(true); // override just this call
+		given(storeService.isOpen()).willReturn(true);
 
 		// <.>
 		assertThat(storeService.isOpen()).isTrue();

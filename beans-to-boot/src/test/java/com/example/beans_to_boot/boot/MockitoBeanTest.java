@@ -30,6 +30,7 @@ class MockitoBeanTest {
 		Mockito.when(this.clock.getZone()).thenReturn(ZoneId.of("Z"));
 	}
 
+	// <.>
 	@Test
 	void businessIsOpenAt10Am(@Autowired StoreService service) {
 		Assertions.assertTrue(service.isOpen());
