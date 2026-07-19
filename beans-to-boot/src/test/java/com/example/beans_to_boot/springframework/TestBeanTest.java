@@ -1,36 +1,31 @@
-package com.example.beans_to_boot.boot;
+package com.example.beans_to_boot.springframework;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.bean.override.convention.TestBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Clock;
 import java.time.Instant;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = StoreConfiguration.class)
-class MockitoBeanTest {
+class TestBeanTest {
 
 	// <.>
-	@MockitoBean(enforceOverride = true)
+	@TestBean(enforceOverride = true)
 	Clock clock;
 
 	// <.>
-	@BeforeEach
-	void before() throws Exception {
+	static Clock clock() throws Exception {
 		var tenAm = Instant.parse("2026-07-17T10:00:00Z");
-		Mockito.when(this.clock.instant()).thenReturn(tenAm);
-		Mockito.when(this.clock.getZone()).thenReturn(ZoneId.of("Z"));
+		return Clock.fixed(tenAm, ZoneOffset.UTC);
 	}
 
-	// <.>
 	@Test
 	void businessIsOpenAt10Am(@Autowired StoreService service) {
 		Assertions.assertTrue(service.isOpen());
