@@ -20,6 +20,12 @@ class AotConfiguration {
 	// <.>
 	private static final Resource MESSAGE = new ClassPathResource("/message");
 
+	// <.>
+	@Bean
+	ApplicationRunner messageLoader() {
+		return _ -> IO.println(MESSAGE.getContentAsString(Charset.defaultCharset()));
+	}
+
 	static class Hints implements RuntimeHintsRegistrar {
 
 		@Override
@@ -28,12 +34,6 @@ class AotConfiguration {
 			hints.resources().registerResource(MESSAGE);
 		}
 
-	}
-
-	// <.>
-	@Bean
-	ApplicationRunner messageLoader() {
-		return _ -> IO.println(MESSAGE.getContentAsString(Charset.defaultCharset()));
 	}
 
 }
